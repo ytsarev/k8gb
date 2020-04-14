@@ -9,7 +9,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - uses: J12934/helm-gh-pages-action@master
+      - uses: dave-mcconnell/helm-gh-pages-microservices@master
         with:
           access-token: ${{ secrets.CR_TOKEN }}
-          charts-folder: chart
+          source-charts-folder: 'chart'
+          destination-repo: ytsarev/ohmyglb
+          destination-charts-folder: docs/helmrepo
