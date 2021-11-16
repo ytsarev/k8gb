@@ -1,6 +1,10 @@
 # Changelog
 
-## [v0.8.3](https://github.com/k8gb-io/k8gb/tree/v0.8.3) (2021-10-19)
+## [v0.8.4](https://github.com/ytsarev/k8gb/tree/v0.8.4) (2021-11-15)
+
+[Full Changelog](https://github.com/ytsarev/k8gb/compare/v0.8.3...v0.8.4)
+
+
 
 [Full Changelog](https://github.com/k8gb-io/k8gb/compare/v0.8.2...v0.8.3)
 
