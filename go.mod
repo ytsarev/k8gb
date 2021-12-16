@@ -11,7 +11,7 @@ require (
 	github.com/infobloxopen/infoblox-go-client v1.1.1
 	github.com/miekg/dns v1.1.43
 	github.com/prometheus/client_golang v1.11.0
-	github.com/rs/zerolog v1.21.0
+	github.com/rs/zerolog v1.26.1
 	github.com/stretchr/testify v1.7.0
 	k8s.io/api v0.22.2
 	k8s.io/apimachinery v0.22.2
