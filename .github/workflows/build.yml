@@ -14,8 +14,7 @@ on:
       - '**.svg'
       - '**.drawio'
       - '.spelling'
-permissions:  # added using https://github.com/step-security/secure-workflows
-  contents: read
+permissions: read-all
 
 jobs:
   skip-check:
