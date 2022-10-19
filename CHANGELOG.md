@@ -1,5 +1,253 @@
 # Changelog
 
+## [v0.9.0](https://github.com/k8gb-io/k8gb/tree/v0.9.0) (2022-03-29)
+
+[Full Changelog](https://github.com/k8gb-io/k8gb/compare/v0.8.8...v0.9.0)
+
+**Closed issues:**
+
+- CR doesn't match CRD after the release [\#859](https://github.com/k8gb-io/k8gb/issues/859)
+- Support for Ingress @ networking.k8s.io/v1 [\#847](https://github.com/k8gb-io/k8gb/issues/847)
+
+**Merged pull requests:**
+
+- v0.9.0 [\#860](https://github.com/k8gb-io/k8gb/pull/860) ([jkremser](https://github.com/jkremser))
+- Update Helm Docs [\#858](https://github.com/k8gb-io/k8gb/pull/858) ([github-actions[bot]](https://github.com/apps/github-actions))
+- Bump operator SDK to v1.18.1 [\#856](https://github.com/k8gb-io/k8gb/pull/856) ([kuritka](https://github.com/kuritka))
+- Use default k3d \(latest\) in our build pipes [\#855](https://github.com/k8gb-io/k8gb/pull/855) ([kuritka](https://github.com/kuritka))
+- Ingress v1 [\#854](https://github.com/k8gb-io/k8gb/pull/854) ([jkremser](https://github.com/jkremser))
+- Update Offline Changelog [\#853](https://github.com/k8gb-io/k8gb/pull/853) ([github-actions[bot]](https://github.com/apps/github-actions))
+- Update Helm Docs [\#852](https://github.com/k8gb-io/k8gb/pull/852) ([github-actions[bot]](https://github.com/apps/github-actions))
+- Don't use latest version of goreleaser [\#851](https://github.com/k8gb-io/k8gb/pull/851) ([jkremser](https://github.com/jkremser))
+- Expose CoreDNS over tcp + make Dig in terratests go via tcp [\#845](https://github.com/k8gb-io/k8gb/pull/845) ([jkremser](https://github.com/jkremser))
+
+
+
+## [v0.8.8](https://github.com/k8gb-io/k8gb/tree/v0.8.8) (2022-03-21)
+
+[Full Changelog](https://github.com/k8gb-io/k8gb/compare/v0.8.7...v0.8.8)
+
+**Fixed bugs:**
+
+- dev: `make test` target fails with overriden k8gb env vars [\#835](https://github.com/k8gb-io/k8gb/issues/835)
+
+**Closed issues:**
+
+- Deploying locally is failing, resources not created [\#828](https://github.com/k8gb-io/k8gb/issues/828)
+- Consider making terratest output readable [\#825](https://github.com/k8gb-io/k8gb/issues/825)
+- Calltime metric for infoblox communication [\#713](https://github.com/k8gb-io/k8gb/issues/713)
+- Fix dependabot alerts [\#697](https://github.com/k8gb-io/k8gb/issues/697)
+
+**Merged pull requests:**
+
+- RELEASE: v0.8.8 [\#850](https://github.com/k8gb-io/k8gb/pull/850) ([jkremser](https://github.com/jkremser))
+- workflow optimization [\#844](https://github.com/k8gb-io/k8gb/pull/844) ([kuritka](https://github.com/kuritka))
+- \[Fix\] zz\_generated.deepcopy.go tags [\#842](https://github.com/k8gb-io/k8gb/pull/842) ([kuritka](https://github.com/kuritka))
+- Bump k8s.io/\* modules [\#841](https://github.com/k8gb-io/k8gb/pull/841) ([kuritka](https://github.com/kuritka))
+- PATCH: downgrade k3d version [\#839](https://github.com/k8gb-io/k8gb/pull/839) ([kuritka](https://github.com/kuritka))
+- GO 1.17 migration [\#838](https://github.com/k8gb-io/k8gb/pull/838) ([kuritka](https://github.com/kuritka))
+- Switching of licence headers from 2021 to 2022 \(additional\) [\#837](https://github.com/k8gb-io/k8gb/pull/837) ([somaritane](https://github.com/somaritane))
+- unset deprecated envvars [\#836](https://github.com/k8gb-io/k8gb/pull/836) ([kuritka](https://github.com/kuritka))
+- Fix log message for strategy annotation detection [\#833](https://github.com/k8gb-io/k8gb/pull/833) ([somaritane](https://github.com/somaritane))
+- Fix deployCrds template rewrite in generated CRD [\#832](https://github.com/k8gb-io/k8gb/pull/832) ([somaritane](https://github.com/somaritane))
+- Switching of licence headers from 2021 to 2022 [\#831](https://github.com/k8gb-io/k8gb/pull/831) ([kuritka](https://github.com/kuritka))
+- Structured logging improvements [\#830](https://github.com/k8gb-io/k8gb/pull/830) ([somaritane](https://github.com/somaritane))
+- Remove split-brain check log message for infoblox provider [\#829](https://github.com/k8gb-io/k8gb/pull/829) ([somaritane](https://github.com/somaritane))
+- Make make colorful [\#827](https://github.com/k8gb-io/k8gb/pull/827) ([jkremser](https://github.com/jkremser))
+- Terratest readable output [\#826](https://github.com/k8gb-io/k8gb/pull/826) ([AugustasV](https://github.com/AugustasV))
+- Always use the bash as the default shell [\#824](https://github.com/k8gb-io/k8gb/pull/824) ([jkremser](https://github.com/jkremser))
+- Update Helm Docs [\#821](https://github.com/k8gb-io/k8gb/pull/821) ([github-actions[bot]](https://github.com/apps/github-actions))
+- Auto-install golangci-lint tool for make lint target [\#820](https://github.com/k8gb-io/k8gb/pull/820) ([somaritane](https://github.com/somaritane))
+- Fix typo in gslb crd examples in readme and helm chart [\#819](https://github.com/k8gb-io/k8gb/pull/819) ([nicsmith](https://github.com/nicsmith))
+- helm: finer control over what is going to be deployed [\#818](https://github.com/k8gb-io/k8gb/pull/818) ([jkremser](https://github.com/jkremser))
+- OpenShift support: add permission on ingress finalizer in k8gb rbac [\#816](https://github.com/k8gb-io/k8gb/pull/816) ([nicsmith](https://github.com/nicsmith))
+- Upgrade all GHA to checkout v2 [\#814](https://github.com/k8gb-io/k8gb/pull/814) ([ytsarev](https://github.com/ytsarev))
+- Upgrade licenses [\#812](https://github.com/k8gb-io/k8gb/pull/812) ([kuritka](https://github.com/kuritka))
+- Update Offline Changelog [\#810](https://github.com/k8gb-io/k8gb/pull/810) ([github-actions[bot]](https://github.com/apps/github-actions))
+- Put OLM bundle under release publish [\#809](https://github.com/k8gb-io/k8gb/pull/809) ([k0da](https://github.com/k0da))
+- Update Helm Docs [\#808](https://github.com/k8gb-io/k8gb/pull/808) ([github-actions[bot]](https://github.com/apps/github-actions))
+- Rename manager to k8gb [\#806](https://github.com/k8gb-io/k8gb/pull/806) ([k0da](https://github.com/k0da))
+- Add histogram metrics for infoblox calls [\#805](https://github.com/k8gb-io/k8gb/pull/805) ([jkremser](https://github.com/jkremser))
+
+
+
+## [v0.8.7](https://github.com/k8gb-io/k8gb/tree/v0.8.7) (2021-12-15)
+
+[Full Changelog](https://github.com/k8gb-io/k8gb/compare/v0.8.6...v0.8.7)
+
+**Fixed bugs:**
+
+- Unable to deploy grafana to the test cluster with deploy-grafana make target [\#796](https://github.com/k8gb-io/k8gb/issues/796)
+
+**Closed issues:**
+
+- dev: Fix kube-linter github workflow [\#800](https://github.com/k8gb-io/k8gb/issues/800)
+- Unable to deploy prometheus to the test cluster with make target [\#795](https://github.com/k8gb-io/k8gb/issues/795)
+- Extend the netlify's PR preview for a change to gh-pages [\#693](https://github.com/k8gb-io/k8gb/issues/693)
+
+**Merged pull requests:**
+
+- RELEASE: v0.8.7 [\#807](https://github.com/k8gb-io/k8gb/pull/807) ([somaritane](https://github.com/somaritane))
+- Update Helm Docs [\#804](https://github.com/k8gb-io/k8gb/pull/804) ([github-actions[bot]](https://github.com/apps/github-actions))
+- Bump coredns-crd-plugin version v0.0.7-\>v0.0.8 [\#803](https://github.com/k8gb-io/k8gb/pull/803) ([somaritane](https://github.com/somaritane))
+- dev: Don't .gitignore chart/k8gb/ directory [\#802](https://github.com/k8gb-io/k8gb/pull/802) ([somaritane](https://github.com/somaritane))
+- kube-linter pipeline and helm template fix [\#801](https://github.com/k8gb-io/k8gb/pull/801) ([somaritane](https://github.com/somaritane))
+- Fix coredns based exposure [\#799](https://github.com/k8gb-io/k8gb/pull/799) ([ytsarev](https://github.com/ytsarev))
+- Prometheus on emptyDir volumes [\#798](https://github.com/k8gb-io/k8gb/pull/798) ([jkremser](https://github.com/jkremser))
+- Fix Grafana makefile target \(use correct cluster name\) [\#797](https://github.com/k8gb-io/k8gb/pull/797) ([jkremser](https://github.com/jkremser))
+- Clean Terratest dependencies [\#793](https://github.com/k8gb-io/k8gb/pull/793) ([kuritka](https://github.com/kuritka))
+- Gracefully finishing deferred calls  [\#792](https://github.com/k8gb-io/k8gb/pull/792) ([kuritka](https://github.com/kuritka))
+- \(un\)deploying prometheus is broken [\#791](https://github.com/k8gb-io/k8gb/pull/791) ([jkremser](https://github.com/jkremser))
+- Re-use the Makefile target from gh-pages branch [\#790](https://github.com/k8gb-io/k8gb/pull/790) ([jkremser](https://github.com/jkremser))
+- Update the local dev docs [\#787](https://github.com/k8gb-io/k8gb/pull/787) ([jkremser](https://github.com/jkremser))
+- Update Offline Changelog [\#786](https://github.com/k8gb-io/k8gb/pull/786) ([github-actions[bot]](https://github.com/apps/github-actions))
+- Update Helm Docs [\#785](https://github.com/k8gb-io/k8gb/pull/785) ([github-actions[bot]](https://github.com/apps/github-actions))
+- Run terratests for upgrade testing against only 2 clusters [\#784](https://github.com/k8gb-io/k8gb/pull/784) ([jkremser](https://github.com/jkremser))
+
+
+
+## [v0.8.6](https://github.com/k8gb-io/k8gb/tree/v0.8.6) (2021-12-05)
+
+[Full Changelog](https://github.com/k8gb-io/k8gb/compare/v0.8.5...v0.8.6)
+
+**Merged pull requests:**
+
+- RELEASE: v0.8.6 [\#783](https://github.com/k8gb-io/k8gb/pull/783) ([jkremser](https://github.com/jkremser))
+- Update Offline Changelog [\#782](https://github.com/k8gb-io/k8gb/pull/782) ([github-actions[bot]](https://github.com/apps/github-actions))
+- Update Helm Docs [\#781](https://github.com/k8gb-io/k8gb/pull/781) ([github-actions[bot]](https://github.com/apps/github-actions))
+- switch hostAlias to real edgeDNS [\#726](https://github.com/k8gb-io/k8gb/pull/726) ([k0da](https://github.com/k0da))
+
+
+
+## [v0.8.5](https://github.com/k8gb-io/k8gb/tree/v0.8.5) (2021-12-01)
+
+[Full Changelog](https://github.com/k8gb-io/k8gb/compare/v0.8.4...v0.8.5)
+
+**Fixed bugs:**
+
+- dev: make command errors [\#770](https://github.com/k8gb-io/k8gb/issues/770)
+- deploy-test-apps and deploy-full-local-setup make commands are broken [\#751](https://github.com/k8gb-io/k8gb/issues/751)
+
+**Closed issues:**
+
+- k8gb controller's pid fails to start correctly when deployed by OLM [\#757](https://github.com/k8gb-io/k8gb/issues/757)
+- Use pod's dnsConfig for our demo [\#712](https://github.com/k8gb-io/k8gb/issues/712)
+- How does this compare to others? [\#689](https://github.com/k8gb-io/k8gb/issues/689)
+
+**Merged pull requests:**
+
+- RELEASE: v0.8.5 [\#780](https://github.com/k8gb-io/k8gb/pull/780) ([jkremser](https://github.com/jkremser))
+- Revert "RELEASE: v0.8.5 \(\#776\)" [\#779](https://github.com/k8gb-io/k8gb/pull/779) ([jkremser](https://github.com/jkremser))
+- .gitignoring file called 'changes' that's produced and consumed by goreleaser [\#778](https://github.com/k8gb-io/k8gb/pull/778) ([jkremser](https://github.com/jkremser))
+- RELEASE: v0.8.5 [\#776](https://github.com/k8gb-io/k8gb/pull/776) ([jkremser](https://github.com/jkremser))
+- Reorder terratest Workflow [\#774](https://github.com/k8gb-io/k8gb/pull/774) ([k0da](https://github.com/k0da))
+- dev: Update for k3d v5.1.0 | k3d-action@v2 [\#773](https://github.com/k8gb-io/k8gb/pull/773) ([somaritane](https://github.com/somaritane))
+- Don't evaluate COREDNS IP too early [\#772](https://github.com/k8gb-io/k8gb/pull/772) ([k0da](https://github.com/k0da))
+- Running all the tests on two clusters and only full-rr on 3 clusters [\#769](https://github.com/k8gb-io/k8gb/pull/769) ([jkremser](https://github.com/jkremser))
+- Makefile: surround vars with quotes in conditional expressions [\#768](https://github.com/k8gb-io/k8gb/pull/768) ([jkremser](https://github.com/jkremser))
+- Invoke the OLM pipeline from release pipeline [\#767](https://github.com/k8gb-io/k8gb/pull/767) ([jkremser](https://github.com/jkremser))
+- Do not deploy test-gslb for terratest runs [\#766](https://github.com/k8gb-io/k8gb/pull/766) ([jkremser](https://github.com/jkremser))
+- Drop resolv.conf hack [\#764](https://github.com/k8gb-io/k8gb/pull/764) ([k0da](https://github.com/k0da))
+- Fix two typos in Makefile [\#762](https://github.com/k8gb-io/k8gb/pull/762) ([jkremser](https://github.com/jkremser))
+- LICENSE & README are required by artifacthub.io, so un-.helmignoring [\#761](https://github.com/k8gb-io/k8gb/pull/761) ([jkremser](https://github.com/jkremser))
+- Fix helm docs for hostAliases entries [\#760](https://github.com/k8gb-io/k8gb/pull/760) ([jkremser](https://github.com/jkremser))
+- Update Helm Docs [\#759](https://github.com/k8gb-io/k8gb/pull/759) ([github-actions[bot]](https://github.com/apps/github-actions))
+- Fix 'cannot verify user is non-root in OLM' [\#758](https://github.com/k8gb-io/k8gb/pull/758) ([jkremser](https://github.com/jkremser))
+- Fixing vulnerabilities in terratests [\#756](https://github.com/k8gb-io/k8gb/pull/756) ([kuritka](https://github.com/kuritka))
+- Add missing displayName + remove existing dir [\#755](https://github.com/k8gb-io/k8gb/pull/755) ([jkremser](https://github.com/jkremser))
+- In CONTRIBUTING.md point to a release pr that went smoothly [\#754](https://github.com/k8gb-io/k8gb/pull/754) ([jkremser](https://github.com/jkremser))
+- Switch to CR\_TOKEN with the workflow scope [\#753](https://github.com/k8gb-io/k8gb/pull/753) ([ytsarev](https://github.com/ytsarev))
+- fix: Broken first user experience commands [\#752](https://github.com/k8gb-io/k8gb/pull/752) ([somaritane](https://github.com/somaritane))
+- Allow the EXT\_GSLB\_CLUSTERS\_GEO\_TAGS to contain CLUSTER\_GEO\_TAG [\#750](https://github.com/k8gb-io/k8gb/pull/750) ([jkremser](https://github.com/jkremser))
+- cleaning .gitignore [\#740](https://github.com/k8gb-io/k8gb/pull/740) ([kuritka](https://github.com/kuritka))
+- Update Offline Changelog [\#736](https://github.com/k8gb-io/k8gb/pull/736) ([github-actions[bot]](https://github.com/apps/github-actions))
+- Multicluster setup \(n \> 2\) [\#722](https://github.com/k8gb-io/k8gb/pull/722) ([jkremser](https://github.com/jkremser))
+
+
+
+## [v0.8.4](https://github.com/k8gb-io/k8gb/tree/v0.8.4) (2021-11-16)
+
+[Full Changelog](https://github.com/k8gb-io/k8gb/compare/v0.8.3...v0.8.4)
+
+**Implemented enhancements:**
+
+- Consolidate goreleaser builds and local docker builds [\#588](https://github.com/k8gb-io/k8gb/issues/588)
+- Create separate README.md file for k8gb helm chart [\#359](https://github.com/k8gb-io/k8gb/issues/359)
+- consider DNS provider config consolidation [\#219](https://github.com/k8gb-io/k8gb/issues/219)
+
+**Closed issues:**
+
+- Get rid of `EXTERNAL_DNS_` prefix at Infoblox ENV vars [\#683](https://github.com/k8gb-io/k8gb/issues/683)
+- Gh action for pushing the up-to-date image of k8gb-demo-curl [\#651](https://github.com/k8gb-io/k8gb/issues/651)
+- Fix the vulnerabilities reported by Artifacthub - part 2 [\#637](https://github.com/k8gb-io/k8gb/issues/637)
+- Fix the vulnerabilities reported by Artifacthub - part 1 [\#636](https://github.com/k8gb-io/k8gb/issues/636)
+
+**Merged pull requests:**
+
+- RELEASE: v0.8.4 [\#749](https://github.com/k8gb-io/k8gb/pull/749) ([ytsarev](https://github.com/ytsarev))
+- Revert "RELEASE: v0.8.4" [\#747](https://github.com/k8gb-io/k8gb/pull/747) ([ytsarev](https://github.com/ytsarev))
+- Extend cut\_release GHA workflow with release revert mechanism [\#745](https://github.com/k8gb-io/k8gb/pull/745) ([ytsarev](https://github.com/ytsarev))
+- curldemo: Build the container image only for pushes to master [\#744](https://github.com/k8gb-io/k8gb/pull/744) ([jkremser](https://github.com/jkremser))
+- Remove only the first two lines from old changelog when appending [\#742](https://github.com/k8gb-io/k8gb/pull/742) ([jkremser](https://github.com/jkremser))
+- Fix onlyLastTag in change log generator [\#741](https://github.com/k8gb-io/k8gb/pull/741) ([k0da](https://github.com/k0da))
+- Deploy test-gslb namespace only in local cluster [\#738](https://github.com/k8gb-io/k8gb/pull/738) ([k0da](https://github.com/k0da))
+- curldemo: Use full path to Dockerfile [\#737](https://github.com/k8gb-io/k8gb/pull/737) ([jkremser](https://github.com/jkremser))
+- Update Helm Docs [\#735](https://github.com/k8gb-io/k8gb/pull/735) ([github-actions[bot]](https://github.com/apps/github-actions))
+- RELEASE: v0.8.4 [\#734](https://github.com/k8gb-io/k8gb/pull/734) ([ytsarev](https://github.com/ytsarev))
+- Revert "RELEASE: v0.8.4 " [\#733](https://github.com/k8gb-io/k8gb/pull/733) ([ytsarev](https://github.com/ytsarev))
+- Update docs about automatic tag during release process + different token [\#732](https://github.com/k8gb-io/k8gb/pull/732) ([jkremser](https://github.com/jkremser))
+- Time out and reconcile  aggressively. [\#730](https://github.com/k8gb-io/k8gb/pull/730) ([k0da](https://github.com/k0da))
+- Create new tag when version in Chart.yaml is bumped [\#729](https://github.com/k8gb-io/k8gb/pull/729) ([jkremser](https://github.com/jkremser))
+- Don't deploy local path storage provisioner [\#728](https://github.com/k8gb-io/k8gb/pull/728) ([k0da](https://github.com/k0da))
+- Remove K8GB\_VERSION env var [\#727](https://github.com/k8gb-io/k8gb/pull/727) ([kuritka](https://github.com/kuritka))
+- Switch version to the latest tag [\#725](https://github.com/k8gb-io/k8gb/pull/725) ([k0da](https://github.com/k0da))
+- RELEASE: v0.8.4  [\#724](https://github.com/k8gb-io/k8gb/pull/724) ([ytsarev](https://github.com/ytsarev))
+- Don't keep adding localtargets- prefix for each ext geo tag [\#719](https://github.com/k8gb-io/k8gb/pull/719) ([jkremser](https://github.com/jkremser))
+- Refactor external DNS to be provider neutral [\#718](https://github.com/k8gb-io/k8gb/pull/718) ([k0da](https://github.com/k0da))
+- Update AWS/Route53 reference setup terraform code [\#717](https://github.com/k8gb-io/k8gb/pull/717) ([ytsarev](https://github.com/ytsarev))
+- Fix upgrade-candidate [\#716](https://github.com/k8gb-io/k8gb/pull/716) ([kuritka](https://github.com/kuritka))
+- open metrics port for k8gb container [\#714](https://github.com/k8gb-io/k8gb/pull/714) ([k0da](https://github.com/k0da))
+- olm: fix paths in the resulting PR [\#711](https://github.com/k8gb-io/k8gb/pull/711) ([jkremser](https://github.com/jkremser))
+- Upgrade the controller-gen dependency [\#710](https://github.com/k8gb-io/k8gb/pull/710) ([kuritka](https://github.com/kuritka))
+- Push image to docker hub \#651 [\#709](https://github.com/k8gb-io/k8gb/pull/709) ([AugustasV](https://github.com/AugustasV))
+- Add KubeCon NA 2021 recording [\#708](https://github.com/k8gb-io/k8gb/pull/708) ([ytsarev](https://github.com/ytsarev))
+- yet another olm CI fixes [\#707](https://github.com/k8gb-io/k8gb/pull/707) ([jkremser](https://github.com/jkremser))
+- helm: translate the edgeDNSServer -\> edgeDNSServers using a tempate [\#706](https://github.com/k8gb-io/k8gb/pull/706) ([jkremser](https://github.com/jkremser))
+- olm: Add installModes and change crd name to fully-qualified one [\#705](https://github.com/k8gb-io/k8gb/pull/705) ([jkremser](https://github.com/jkremser))
+- \[FIX\] v0.8.3 panicking error [\#704](https://github.com/k8gb-io/k8gb/pull/704) ([kuritka](https://github.com/kuritka))
+- Align exact version in release.yaml [\#703](https://github.com/k8gb-io/k8gb/pull/703) ([kuritka](https://github.com/kuritka))
+- Drop socrecard OLM annotation [\#702](https://github.com/k8gb-io/k8gb/pull/702) ([k0da](https://github.com/k0da))
+- olm: Add missing annotations + typo in repository [\#701](https://github.com/k8gb-io/k8gb/pull/701) ([jkremser](https://github.com/jkremser))
+- Bump dependencies \#1 [\#700](https://github.com/k8gb-io/k8gb/pull/700) ([kuritka](https://github.com/kuritka))
+- olm: Fix paths when using version=master + more descriptive PR body [\#699](https://github.com/k8gb-io/k8gb/pull/699) ([jkremser](https://github.com/jkremser))
+- Set GO1.16.9 as default GO version for goreleaser [\#698](https://github.com/k8gb-io/k8gb/pull/698) ([kuritka](https://github.com/kuritka))
+- Using non-default token for opening the PR [\#696](https://github.com/k8gb-io/k8gb/pull/696) ([jkremser](https://github.com/jkremser))
+- typo: GH\_TOKEN -\> GITHUB\_TOKEN [\#695](https://github.com/k8gb-io/k8gb/pull/695) ([jkremser](https://github.com/jkremser))
+- Add a way to use non-released changes in repo for producing an olm bundle [\#694](https://github.com/k8gb-io/k8gb/pull/694) ([jkremser](https://github.com/jkremser))
+- Update dev documentation for custom SSL cert support \(\#687\) [\#691](https://github.com/k8gb-io/k8gb/pull/691) ([somaritane](https://github.com/somaritane))
+- Mass AbsaOSS -\> k8gb-io in code and docs [\#690](https://github.com/k8gb-io/k8gb/pull/690) ([ytsarev](https://github.com/ytsarev))
+- Adding large logo to README.md [\#686](https://github.com/k8gb-io/k8gb/pull/686) ([kuritka](https://github.com/kuritka))
+- Update Helm Docs [\#684](https://github.com/k8gb-io/k8gb/pull/684) ([github-actions[bot]](https://github.com/apps/github-actions))
+- Fix url and add maintainers to Chart.yaml [\#682](https://github.com/k8gb-io/k8gb/pull/682) ([jkremser](https://github.com/jkremser))
+- Use k8gb.io png icon asset as helm chart icon [\#681](https://github.com/k8gb-io/k8gb/pull/681) ([somaritane](https://github.com/somaritane))
+- Update Helm Docs [\#679](https://github.com/k8gb-io/k8gb/pull/679) ([github-actions[bot]](https://github.com/apps/github-actions))
+- olm-bundle: generating the ClusterServiceVerion file + gh action [\#678](https://github.com/k8gb-io/k8gb/pull/678) ([jkremser](https://github.com/jkremser))
+- Update ignore command for netlify [\#677](https://github.com/k8gb-io/k8gb/pull/677) ([jkremser](https://github.com/jkremser))
+- Bind env variables with ENV-BINDER, clearing tests [\#676](https://github.com/k8gb-io/k8gb/pull/676) ([kuritka](https://github.com/kuritka))
+- Revert "Use PNG image as chart icon \(\#671\)" [\#675](https://github.com/k8gb-io/k8gb/pull/675) ([k0da](https://github.com/k0da))
+- Generate chart README.md with helm-docs [\#674](https://github.com/k8gb-io/k8gb/pull/674) ([k0da](https://github.com/k0da))
+- Move local Prometheus port exposure to less standard ports [\#673](https://github.com/k8gb-io/k8gb/pull/673) ([ytsarev](https://github.com/ytsarev))
+- Drop svc migration related values [\#672](https://github.com/k8gb-io/k8gb/pull/672) ([k0da](https://github.com/k0da))
+- Use PNG image as chart icon [\#671](https://github.com/k8gb-io/k8gb/pull/671) ([k0da](https://github.com/k0da))
+- Switch docker build to be built by goreleaser [\#670](https://github.com/k8gb-io/k8gb/pull/670) ([k0da](https://github.com/k0da))
+- Update Offline Changelog [\#669](https://github.com/k8gb-io/k8gb/pull/669) ([github-actions[bot]](https://github.com/apps/github-actions))
+- Set onlyLastTag to true to prevent rate limiting issues w/ gh api [\#668](https://github.com/k8gb-io/k8gb/pull/668) ([jkremser](https://github.com/jkremser))
+- Add icon URL to k8gb helm chart [\#667](https://github.com/k8gb-io/k8gb/pull/667) ([somaritane](https://github.com/somaritane))
+- web-preview: list the files to checkout w/o using the {foo,bar}.md syntax [\#665](https://github.com/k8gb-io/k8gb/pull/665) ([jkremser](https://github.com/jkremser))
+- Add automatic deployment preview of PRs when changing the site [\#660](https://github.com/k8gb-io/k8gb/pull/660) ([jkremser](https://github.com/jkremser))
+
+
+
 ## [v0.8.3](https://github.com/k8gb-io/k8gb/tree/v0.8.3) (2021-10-19)
 
 [Full Changelog](https://github.com/k8gb-io/k8gb/compare/v0.8.2...v0.8.3)
