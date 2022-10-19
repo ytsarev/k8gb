@@ -19,7 +19,6 @@ permissions: read-all
 jobs:
   skip-check:
     permissions:
-      actions: write  # for fkirc/skip-duplicate-actions to skip or stop workflow runs
       contents: read  # for fkirc/skip-duplicate-actions to read and compare commits
     runs-on: ubuntu-latest
     name: Skip the job?
