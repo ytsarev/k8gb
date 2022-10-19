@@ -11,8 +11,6 @@ permissions:
 
 jobs:
   release:
-    permissions:
-      contents: write
     runs-on: ubuntu-20.04
     outputs:
       container_tags: ${{ steps.container_info.outputs.container_tags }}

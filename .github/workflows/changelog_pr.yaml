@@ -11,7 +11,6 @@ permissions:  # added using https://github.com/step-security/secure-workflows
 jobs:
   chanagelog-pr:
     permissions:
-      contents: write  # for peter-evans/create-pull-request to create branch
       pull-requests: write  # for peter-evans/create-pull-request to create a PR
     runs-on: ubuntu-20.04
     steps:

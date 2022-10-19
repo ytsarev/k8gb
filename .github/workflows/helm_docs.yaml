@@ -10,9 +10,6 @@ permissions:  # added using https://github.com/step-security/secure-workflows
 
 jobs:
   build-helm-doc:
-    permissions:
-      contents: write  # for peter-evans/create-pull-request to create branch
-      pull-requests: write  # for peter-evans/create-pull-request to create a PR
     name: Update Helm Doc
     runs-on: ubuntu-latest
     steps:
