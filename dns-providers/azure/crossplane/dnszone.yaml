@@ -1,0 +1,20 @@
+apiVersion: network.azure.upbound.io/v1beta2
+kind: DNSZone
+metadata:
+  annotations:
+    crossplane.io/external-name: k8gb-test.io
+  name: k8gb-test
+spec:
+  forProvider:
+    resourceGroupNameRef:
+      name: k8gb-test
+
+---
+
+apiVersion: azure.upbound.io/v1beta1
+kind: ResourceGroup
+metadata:
+  name: k8gb-test
+spec:
+  forProvider:
+    location: West Europe
