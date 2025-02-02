@@ -1,3 +1,5 @@
+# TODO : update doc to Crossplane!!(ytsarev)
+
 # Test Azure DNS integration from a local cluster
 
 This is a guide how to test the Azure DNS integration of K8GB
@@ -62,7 +64,7 @@ Finally, we can create a GSLB resouce that will trigger a reconciliation loop of
 To do that we will need to configure the DNS zone we create on K8GB:
 ```
 # replace with your zone
-EDGE_DNS_ZONE="k8gb.io"
+EDGE_DNS_ZONE="k8gb-test.io"
 ```
 ```
 DNS_ZONE="cloud.${EDGE_DNS_ZONE}"

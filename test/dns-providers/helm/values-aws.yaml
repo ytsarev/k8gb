@@ -1,0 +1,11 @@
+k8gb:
+  k8gb:
+    dnsZone: "<helm set>"
+    edgeDNSZone: "<helm set>"
+    edgeDNSServers:
+    - "<helm set"
+
+  route53:
+    enabled: true
+    hostedZoneID: Z02312292F9BX05DVPXUI
+    secret: aws-creds

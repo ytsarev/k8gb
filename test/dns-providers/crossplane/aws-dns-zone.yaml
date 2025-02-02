@@ -1,0 +1,9 @@
+---
+apiVersion: route53.aws.upbound.io/v1beta1
+kind: Zone
+metadata:
+  name: k8gb-test
+spec:
+  forProvider:
+    name: k8gb-test.io
+    region: us-west-1
