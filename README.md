@@ -4,13 +4,12 @@
 <h1 align="center" class="disable-logo" style="margin-top: 0;">K8GB - Kubernetes Global Balancer<a href="https://www.k8gb.io"></h1>
 <p align="center"><a href="https://landscape.cncf.io/?item=orchestration-management--coordination-service-discovery--k8gb">CNCF Sandbox Project</a> | <a href="https://github.com/orgs/k8gb-io/projects/2/views/2">Roadmap</a> | <a href="https://cloud-native.slack.com/archives/C021P656HGB">Join #k8gb on CNCF Slack</a></p>
 
-[![License: MIT](https://img.shields.io/badge/License-Apache_2.0-yellow.svg)](https://opensource.org/licenses/Apache-2.0)
-[![Build Status](https://github.com/k8gb-io/k8gb/workflows/Golang%20lint,%20golic,%20gokart%20and%20test/badge.svg?branch=master)](https://github.com/k8gb-io/k8gb/actions?query=workflow%3A%22Golang%20lint,%20golic,%20gokart%20and%20test%22+branch%3Amaster)
-[![Terratest Status](https://github.com/k8gb-io/k8gb/workflows/Terratest/badge.svg?branch=master)](https://github.com/k8gb-io/k8gb/actions?query=workflow%3ATerratest+branch%3Amaster)
-[![CodeQL](https://github.com/k8gb-io/k8gb/workflows/CodeQL/badge.svg?branch=master)](https://github.com/k8gb-io/k8gb/actions?query=workflow%3ACodeQL+branch%3Amaster)
+[![License: Apache_2](https://img.shields.io/badge/License-Apache_2.0-yellow.svg)](https://opensource.org/licenses/Apache-2.0)
+[![Golang lint, golic and test](https://github.com/k8gb-io/k8gb/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/k8gb-io/k8gb/actions/workflows/build.yml)
+[![Terratest](https://github.com/k8gb-io/k8gb/actions/workflows/terratest.yaml/badge.svg)](https://github.com/k8gb-io/k8gb/actions/workflows/terratest.yaml)
+[![CodeQL](https://github.com/k8gb-io/k8gb/workflows/CodeQL/badge.svg)](https://github.com/k8gb-io/k8gb/actions?query=workflow%3ACodeQL+branch%3Amaster)
 [![Go Report Card](https://goreportcard.com/badge/github.com/k8gb-io/k8gb)](https://goreportcard.com/report/github.com/k8gb-io/k8gb)
 [![Helm Publish](https://github.com/k8gb-io/k8gb/actions/workflows/helm_publish.yaml/badge.svg)](https://github.com/k8gb-io/k8gb/actions/workflows/helm_publish.yaml)
-[![KubeLinter](https://github.com/k8gb-io/k8gb/workflows/KubeLinter/badge.svg?branch=master)](https://github.com/k8gb-io/k8gb/actions?query=workflow%3AKubeLinter+branch%3Amaster)
 [![Docker Pulls](https://img.shields.io/docker/pulls/absaoss/k8gb)](https://hub.docker.com/r/absaoss/k8gb)
 [![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/k8gb)](https://artifacthub.io/packages/search?repo=k8gb)
 [![doc.crds.dev](https://img.shields.io/badge/doc-crds-purple)](https://doc.crds.dev/github.com/k8gb-io/k8gb)
@@ -30,19 +29,11 @@ metadata:
   name: test-gslb-failover
   namespace: test-gslb
 spec:
-  ingress:
-    ingressClassName: nginx # or any other existing ingressclasses.networking.k8s.io
-    rules:
-      - host: failover.test.k8gb.io # Desired GSLB enabled FQDN
-        http:
-          paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: frontend-podinfo # Service name to enable GSLB for
-                port:
-                  name: http
+  resourceRef:
+    apiVersion: networking.k8s.io/v1
+    kind: Ingress
+    matchLabels: # ingresses.networking.k8s.io resource selector
+      app: test-gslb-failover
   strategy:
     type: failover # Global load balancing strategy
     primaryGeoTag: eu-west-1 # Primary cluster geo tag
@@ -116,6 +107,7 @@ Internal k8gb architecture and its components are described [here](/docs/compone
 * [Integration with Admiralty](/docs/admiralty.md)
 * [Integration with Liqo](/docs/liqo.md)
 * [Integration with Rancher Fleet](/docs/rancher.md)
+* [Integration with Crossplane - Global Application](/docs/examples/crossplane/globalapp/README.md)
 
 ## Adopters
 
@@ -124,14 +116,16 @@ We encourage all users of K8GB to add themselves to this list!
 
 ## Production Readiness
 
-k8gb is very well tested with the following environment options
+You can use k8gb in on-prem, cloud and hybrid environments.
+
+k8gb is tested with the following environment options.
 
 | Type                             | Implementation                                                               |
 |----------------------------------|------------------------------------------------------------------------------|
-| Kubernetes Version               | for k8s `< 1.19` use k8gb `<= 0.8.8`; since k8s `1.19` use `0.9.0` or newer  |
-| Environment                      | Self-managed, AWS(EKS) [*](#clarify)                                         |
+| Kubernetes Version               | >= `1.21`                                                                    |
+| Environment                      | Any conformant Kubernetes cluster on-prem or in cloud                        |
 | Ingress Controller               | NGINX, AWS Load Balancer Controller [*](#clarify)                            |
-| EdgeDNS                          | Infoblox, Route53, NS1                                                       |
+| EdgeDNS                          | Infoblox, Route53, NS1, CloudFlare, AzureDNS                                 |
 
 <a name="clarify"></a>* We only mention solutions where we have tested and verified a k8gb installation.
 If your Kubernetes version or Ingress controller is not included in the table above, it does not mean that k8gb will not work for you. k8gb is architected to run on top of any compliant Kubernetes cluster and Ingress controller.
@@ -140,11 +134,13 @@ If your Kubernetes version or Ingress controller is not included in the table ab
 
 [//]: # (Table is generated with the help of https://www.tablesgenerator.com/markdown_tables#)
 
-| **KubeCon EU 2024** [![](https://img.youtube.com/vi/MsQ0E7SYNPo/0.jpg)](https://www.youtube.com/watch?v=MsQ0E7SYNPo "K8gb: Reliable Global Service Load Balancing without vendor lock-in \| Project Lightning Talk") | **KubeCon NA 2023** [![](https://img.youtube.com/vi/4qJDkw5YGqM/0.jpg)](https://www.youtube.com/watch?v=4qJDkw5YGqM "KubeCon NA 2023: Take It to the Edge: Creating a Globally Distributed Ingress with Istio & K8gb - Jimmi Dyson, D2iQ") |
+| **KubeCon China 2025**   [![](https://img.youtube.com/vi/L9mRWljLnzw/0.jpg)](https://www.youtube.com/watch?v=L9mRWljLnzw "Resilient Multiregion Global Control Planes With Crossplane and K8gb ") | **KubeCon EU 2025** [![](https://img.youtube.com/vi/YMyrcqZ2sbU/0.jpg)](https://www.youtube.com/watch?v=YMyrcqZ2sbU "Project Lightning Talk: What's New in k8gb: CNCF's Multicluster Global Balancer - Bradley Andersen") |
 |---|---|
-| **KCDBengaluru 2023** [![](https://img.youtube.com/vi/vrDCUIVyc4g/0.jpg)](https://www.youtube.com/watch?v=vrDCUIVyc4g "Kubernetes Community Days Bengaluru 2023: Cloud Native Multi Cluster/Multicloud Global Load Balancer for Kubernetes") | **KubeCon EU 2023** [![](https://img.youtube.com/vi/U46hlF0Z3xs/0.jpg)](https://www.youtube.com/watch?v=U46hlF0Z3xs "KubeCon EU 2023: Recovering from Regional Failures at Cloud Native Speeds") |
-| **KubeCon NA 2021** [![](https://img.youtube.com/vi/-lkKZRdv81A/0.jpg)](https://www.youtube.com/watch?v=-lkKZRdv81A "KubeCon NA 2021: Cloud Native Global Load Balancer for Kubernetes") | **FOSDEM 2022** [![](https://img.youtube.com/vi/1UTWxf7PQis/0.jpg)](https://www.youtube.com/watch?v=1UTWxf7PQis "FOSDEM 2022: Cloud Native Global Load Balancer for Kubernetes") |
-| **NS1 INS1GHTS** [![](https://img.youtube.com/vi/T_4EiAqwevI/0.jpg)](https://www.youtube.com/watch?v=T_4EiAqwevI "INS1GHTS: Cloud Native Global Load Balancer for Kubernetes") | **Crossplane Community Day** [![](https://img.youtube.com/vi/5l4Xf_Q8ybY/0.jpg)](https://www.youtube.com/watch?v=5l4Xf_Q8ybY "Crossplane Community Day Europe: Scaling Kubernetes Global Balancer with Crossplane") |
+| **ChatLoopBackOff - Episode 42 (K8gb)** [![](https://img.youtube.com/vi/tKUNI6E1_7c/0.jpg)](https://www.youtube.com/watch?v=tKUNI6E1_7c "ChatLoopBackOff - Episode 42 (K8gb)") | **KubeCon NA 2024** [![](https://img.youtube.com/vi/vCzl15AIoU0/0.jpg)](https://www.youtube.com/watch?v=vCzl15AIoU0 "k8gb: Global Load Balancing, the Kubernetes Way \| Project Lightning Talk") |
+| **Open Source Summit EU 2024** [![](https://img.youtube.com/vi/5eLX4kMgo8Q/0.jpg)](https://www.youtube.com/watch?v=5eLX4kMgo8Q "Multi-Cloud Global Content Distribution at Cloud Native Speeds") | **KubeCon EU 2024** [![](https://img.youtube.com/vi/MsQ0E7SYNPo/0.jpg)](https://www.youtube.com/watch?v=MsQ0E7SYNPo "K8gb: Reliable Global Service Load Balancing without vendor lock-in \| Project Lightning Talk") |
+| **KubeCon NA 2023** [![](https://img.youtube.com/vi/4qJDkw5YGqM/0.jpg)](https://www.youtube.com/watch?v=4qJDkw5YGqM "KubeCon NA 2023: Take It to the Edge: Creating a Globally Distributed Ingress with Istio & K8gb - Jimmi Dyson, D2iQ") | **KubeCon EU 2023** [![](https://img.youtube.com/vi/U46hlF0Z3xs/0.jpg)](https://www.youtube.com/watch?v=U46hlF0Z3xs "KubeCon EU 2023: Recovering from Regional Failures at Cloud Native Speeds") |
+| **FOSDEM 2022** [![](https://img.youtube.com/vi/1UTWxf7PQis/0.jpg)](https://www.youtube.com/watch?v=1UTWxf7PQis "FOSDEM 2022: Cloud Native Global Load Balancer for Kubernetes") | **KCDBengaluru 2023** [![](https://img.youtube.com/vi/vrDCUIVyc4g/0.jpg)](https://www.youtube.com/watch?v=vrDCUIVyc4g "Kubernetes Community Days Bengaluru 2023: Cloud Native Multi Cluster/Multicloud Global Load Balancer for Kubernetes") |
+| **Crossplane Community Day** [![](https://img.youtube.com/vi/5l4Xf_Q8ybY/0.jpg)](https://www.youtube.com/watch?v=5l4Xf_Q8ybY "Crossplane Community Day Europe: Scaling Kubernetes Global Balancer with Crossplane") | **KubeCon NA 2021** [![](https://img.youtube.com/vi/-lkKZRdv81A/0.jpg)](https://www.youtube.com/watch?v=-lkKZRdv81A "KubeCon NA 2021: Cloud Native Global Load Balancer for Kubernetes") |
 | **#29 DoK Community** [![](https://img.youtube.com/vi/MluFlwPFZws/hqdefault.jpg)](https://www.youtube.com/watch?v=MluFlwPFZws "#29 DoK Community: How Absa Developed Cloud Native Global Load Balancer for Kubernetes") | **AWS Containers from the Couch show** [![](https://img.youtube.com/vi/5pe3ezSnVI8/hqdefault.jpg)](https://www.youtube.com/watch?v=5pe3ezSnVI8 "AWS Containers from the Couch") |
 | **OpenShift Commons Briefings** [![](https://img.youtube.com/vi/5DhO9C2NCrk/0.jpg)](https://www.youtube.com/watch?v=5DhO9C2NCrk "OpenShift Commons Briefings") | **Demo at Kubernetes SIG Multicluster** [![](https://img.youtube.com/vi/jeUeRQM-ZyM/0.jpg)](https://www.youtube.com/watch?v=jeUeRQM-ZyM "Kubernetes SIG Multicluster") |
 

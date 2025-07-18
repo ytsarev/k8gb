@@ -98,7 +98,7 @@ Overrides done this way can persist between terminal sessions and can be used as
 
 ## Testing
 
-- Any functional GSLB controller code change should be secured by the corresponding [unit tests](https://github.com/k8gb-io/k8gb/tree/master/controllers/gslb_controller_test.go).
+- Any functional GSLB controller code change should be secured by the corresponding [unit tests](https://github.com/k8gb-io/k8gb/tree/master/controllers/gslb_controller_reconciliation_test.go).
 - Integration terratest suite is located [here](https://github.com/k8gb-io/k8gb/tree/master/terratest).
   These tests are updated only if the change is substantial enough to affect the main end-to-end flow.
 - See the [local playground guide](https://github.com/k8gb-io/k8gb/blob/master/docs/local.md) for local testing environment setup and integration test execution.
@@ -335,6 +335,12 @@ make demo DEMO_URL=https://failover.test.exampledns.tk DEMO_DEBUG=1
 
 * Bump the version in `Chart.yaml`, see [example PR](https://github.com/k8gb-io/k8gb/pull/749). Make sure the
 commit message starts with `RELEASE:`.
+* In addition, bump the version in `chart/k8gb/README.md` to reflect correct version tags in artifacthub after
+release, e.g.
+```
+chart/k8gb/README.md:![Version: v0.13.0](https://img.shields.io/badge/Version-v0.13.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.13.0](https://img.shields.io/badge/AppVersion-v0.13.0-informational?style=flat-square)
+```
+* Ensure `stable` become `next`. Update `deploy/helm/stable.yaml` with `deploy/helm/next.yaml`.
 * Merge the Pull Request after the review approval (make sure the squash or rebase is used, merge commit will not trigger the release pipeline)
 * At this point a DRAFT release will be created on GitHub. After the [automatic tag](https://github.com/k8gb-io/k8gb/actions/workflows/cut_release.yaml) & [release pipeline](https://github.com/k8gb-io/k8gb/actions/workflows/release.yaml)
 have been successfully completed, you check the [release DRAFT](https://github.com/k8gb-io/k8gb/releases) and if it is OK, you click on the **"Publish release"** button.

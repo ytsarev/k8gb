@@ -17,7 +17,7 @@ cp chart/k8gb/values.yaml ~/k8gb/eu-cluster.yaml
 * Modify the example configuration. Important parameters described below:
   * `dnsZone` - this zone will be delegated to the `edgeDNS` in your environment. E.g. `yourzone.edgedns.com`
   * `edgeDNSZone` - this zone will be automatically configured by k8gb to delegate to `dnsZone` and will make k8gb controlled nodes act as authoritative server for this zone. E.g. `edgedns.com`
-  * `edgeDNSServers` stable DNS servers in your environment that is controlled by edgeDNS provider e.g. Infoblox so k8gb instances will be able to talk to each other through automatically created DNS names
+  * `parentZoneDNSServers` stable DNS servers in your environment that is controlled by edgeDNS provider e.g. Infoblox so k8gb instances will be able to talk to each other through automatically created DNS names
   * `clusterGeoTag` to geographically tag your cluster. We are operating `eu` cluster in this example
   * `extGslbClustersGeoTags` contains Geo tag of the cluster(s) to talk with when k8gb is deployed to multiple clusters. Imagine your second cluster is `us` so we tag it accordingly
   * `infoblox.enabled: true` to enable automated zone delegation configuration at edgeDNS provider. You don't need it for local testing and can optionally be skipped. Meanwhile, in this section we will cover a fully operational end-to-end scenario.
@@ -83,29 +83,40 @@ NAME            TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)             AG
 podinfo         ClusterIP   10.96.250.84    <none>        9898/TCP,9999/TCP   9m39s
 ```
 
-* Create a custom resource `~/k8gb/podinfogslb.yaml` describing `Gslb` as per the sample below:
+* Create a custom resource `~/k8gb/podinfogslb.yaml` describing an `Ingress` and a `Gslb` as per the sample below:
 ```yaml
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: podinfo
+  namespace: test-gslb
+  labels:
+    app: podinfo
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: podinfo.cloud.example.com
+      http:
+        paths:
+        - path: /
+          backend:
+            service:
+              name: podinfo # This should point to Service name of testing application
+              port:
+                name: http
+---
 apiVersion: k8gb.absa.oss/v1beta1
 kind: Gslb
 metadata:
   name: podinfo
   namespace: test-gslb
 spec:
-  ingress:
-    ingressClassName: nginx
-    rules:
-      - host: podinfo.cloud.example.com
-        http:
-          paths:
-          - path: /
-            backend:
-              service:
-                name: podinfo # This should point to Service name of testing application
-                port:
-                  name: http
-
-  strategy:
-    type: roundRobin # Use a round robin load balancing strategy, when deciding which downstream clusters to route clients too
+  resourceRef:
+    apiVersion: networking.k8s.io/v1
+    kind: Ingress
+    matchLabels:
+      app: podinfo
 ```
 
 * And apply the resource in the target app namespace

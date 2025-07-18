@@ -30,9 +30,9 @@ Remember to change the zone-related values to point configuration to your own DN
 
 ```yaml
 k8gb:
-  dnsZone: "cloudflare-test.k8gb.io"
-  # -- main zone which would contain gslb zone to delegate
-  edgeDNSZone: "k8gb.io" # main zone which would contain gslb zone to delegate
+  dnsZones:
+  - parentZone: "k8gb.io"
+    loadBalancedZone: "cloudflare-test.k8gb.io"
 ```
 
 ### Cloudflare-specific configuration
@@ -74,7 +74,7 @@ kubectl -n k8gb create secret generic cloudflare --from-literal=token=<api-secre
 
 Note: you can create Cloudflare API tokens at https://dash.cloudflare.com/profile/api-tokens
 
-### Create test Gslb resource
+### Create test Ingress and Gslb resources
 
 Now we can test the setup with a pretty standard Gslb resource configuration.
 
@@ -85,23 +85,14 @@ metadata:
   name: test-gslb-failover
   namespace: test-gslb
 spec:
-  ingress:
-    ingressClassName: nginx
-    rules:
-    - host: failover.cloudflare-test.k8gb.io
-      http:
-        paths:
-        - backend:
-            service:
-              name: frontend-podinfo
-              port:
-                name: http
-          path: /
-          pathType: Prefix
+  resourceRef:
+    apiVersion: networking.k8s.io/v1
+    kind: Ingress
+    matchLabels:
+      app: test-gslb-failover
   strategy:
     dnsTtlSeconds: 60 # Minimum for non-Enterprise Cloudflare https://developers.cloudflare.com/dns/manage-dns-records/reference/ttl/
     primaryGeoTag: eu
-    splitBrainThresholdSeconds: 300
     type: failover
 ```
 
@@ -109,7 +100,7 @@ The only unusual thing here is `spec.strategy.dnsTtlSeconds` that should be of a
 minimum 60-second value in case you are operating a non-Enterprise Cloudflare
 subscription. The lower values will be rejected by Cloudflare API.
 
-Apply Gslb resource to each cluster.
+Apply the Gslb and Ingress resources to each cluster.
 
 ```sh
 kubectl apply -f ./docs/examples/cloudflare/test-gslb-failover.yaml
@@ -125,7 +116,7 @@ $ kubectl -n k8gb get dnsendpoints.externaldns.k8s.io k8gb-ns-extdns -o yaml
 apiVersion: externaldns.k8s.io/v1alpha1
 kind: DNSEndpoint
 metadata:
-  annotations:
+  labels:
     k8gb.absa.oss/dnstype: extdns
   creationTimestamp: "2023-11-12T19:55:20Z"
   generation: 3
