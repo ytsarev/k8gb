@@ -151,11 +151,23 @@ func getGslbIngressEmbedded(gslb *k8gbv1beta1.Gslb, k8sClient client.Client) (*n
 func (rr *ReferenceResolver) GetServers() ([]*k8gbv1beta1.Server, error) {
 	servers := []*k8gbv1beta1.Server{}
 
+	log.Debug().
+		Str("ingress", rr.ingress.Name).
+		Str("namespace", rr.ingress.Namespace).
+		Int("rules_count", len(rr.ingress.Spec.Rules)).
+		Msg("Starting server resolution from ingress rules")
+
 	for _, rule := range rr.ingress.Spec.Rules {
 		server := &k8gbv1beta1.Server{
 			Host:     rule.Host,
 			Services: []*k8gbv1beta1.NamespacedName{},
 		}
+
+		log.Debug().
+			Str("host", rule.Host).
+			Str("ingress", rr.ingress.Name).
+			Msg("Processing ingress rule for host")
+
 		for _, path := range rule.HTTP.Paths {
 			if path.Backend.Service == nil || path.Backend.Service.Name == "" {
 				log.Warn().
@@ -168,9 +180,25 @@ func (rr *ReferenceResolver) GetServers() ([]*k8gbv1beta1.Server, error) {
 				Name:      path.Backend.Service.Name,
 				Namespace: rr.ingress.Namespace,
 			})
+
+			log.Debug().
+				Str("service", path.Backend.Service.Name).
+				Str("namespace", rr.ingress.Namespace).
+				Str("host", rule.Host).
+				Msg("Added service to server configuration")
 		}
 		servers = append(servers, server)
 	}
+
+	totalServices := 0
+	for _, srv := range servers {
+		totalServices += len(srv.Services)
+	}
+	log.Info().
+		Str("ingress", rr.ingress.Name).
+		Int("servers_count", len(servers)).
+		Int("services_count", totalServices).
+		Msg("Completed server resolution from ingress")
 
 	return servers, nil
 }
