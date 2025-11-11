@@ -309,13 +309,86 @@ See the "Additional Issue: Go 1.25 covdata Bug" section above for detailed expla
    go build ./...
    ```
 
-## Next Steps
+## Follow-Up Contribution Ideas
 
-After completing this exercise:
-1. Look for other places in K8GB where we use controller-runtime interfaces
-2. Consider adding the verify-mocks CI check to the project
-3. Explore other make targets in the Makefile
-4. Try updating another dependency and see if similar issues occur
+After completing this exercise, here are some ways you can contribute to K8GB:
+
+### 1. Add CI Check for Mock Synchronization
+
+**Problem:** Out-of-sync mocks can slip into PRs if contributors forget to run `make mocks`.
+
+**Solution:** Add a GitHub Actions workflow to verify mocks are up-to-date:
+
+```yaml
+# .github/workflows/verify-mocks.yaml
+name: Verify Mocks
+on: [pull_request]
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+      - name: Generate mocks
+        run: make mocks
+      - name: Check for differences
+        run: |
+          git diff --exit-code controllers/mocks/ || \
+            (echo "Mocks are out of sync. Run 'make mocks' locally." && exit 1)
+```
+
+This catches the problem before it gets merged!
+
+### 2. Automate GOTOOLCHAIN Updates with Renovate
+
+**Problem:** When Renovate updates the Go version in `go.mod`, the `GOTOOLCHAIN` environment variable in the Makefile can become outdated.
+
+Example:
+- Renovate updates: `go 1.25.2` → `go 1.25.3`
+- Makefile still has: `GOTOOLCHAIN=go1.25.2+auto`
+- Result: Mismatched toolchain versions
+
+**Solution:** Configure Renovate to update both files together using `regexManagers`.
+
+Add this to your `.github/renovate.json` or `renovate.json`:
+
+```json
+{
+  "extends": ["config:base"],
+  "regexManagers": [
+    {
+      "fileMatch": ["^Makefile$"],
+      "matchStrings": [
+        "GOTOOLCHAIN=go(?<currentValue>\\d+\\.\\d+\\.\\d+)\\+auto"
+      ],
+      "depNameTemplate": "go",
+      "datasourceTemplate": "golang-version",
+      "versioningTemplate": "loose"
+    }
+  ]
+}
+```
+
+**How it works:**
+- `fileMatch`: Tells Renovate to scan the Makefile
+- `matchStrings`: Regex to find and extract the version from `GOTOOLCHAIN=go1.25.2+auto`
+- `datasourceTemplate`: Uses Go version datasource to check for updates
+- When Renovate updates `go.mod`, it also updates the Makefile in the same PR
+
+**Bonus:** You can test this locally if you have Renovate CLI:
+```bash
+npm install -g renovate
+renovate --dry-run --require-config=ignored
+```
+
+### 3. Other Ideas
+
+- Look for other places in K8GB that use controller-runtime interfaces
+- Explore other make targets and see if they need similar fixes
+- Try updating another dependency and document any issues you find
+- Add documentation about the mock generation process
 
 ## Questions for Discussion
 
