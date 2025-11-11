@@ -495,34 +495,6 @@ for _, rule := range rr.ingress.Spec.Rules {
 
 Test it by creating an Ingress with an empty rule.
 
-### Exercise 3: Add Metrics
-
-**Goal:** Combine logging with metrics
-
-K8GB uses Prometheus for metrics. Add a metric counter for processed servers:
-
-1. Look at `controllers/providers/metrics/prometheus.go` to understand the metrics system
-2. Add a new counter for `ingress_servers_processed_total`
-3. Increment it in the `GetServers()` method
-4. Test that the metric appears in Prometheus
-
-### Exercise 4: Log Context Propagation
-
-**Goal:** Add request tracing
-
-Modify the method signature to accept a context:
-
-```go
-func (rr *ReferenceResolver) GetServers(ctx context.Context) ([]*k8gbv1beta1.Server, error) {
-```
-
-Use the context to:
-1. Extract trace IDs from OpenTelemetry
-2. Add them to log messages
-3. Enable distributed tracing across clusters
-
-Hint: Look at `controllers/tracing/tracing.go` for examples.
-
 ## Key Takeaways
 
 1. **Structured Logging:** Use key-value pairs (`.Str()`, `.Int()`) instead of formatted strings for easier parsing and filtering
