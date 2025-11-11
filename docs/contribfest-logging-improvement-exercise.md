@@ -307,14 +307,29 @@ This will:
 - Deploy test applications (podinfo)
 - Configure DNS and load balancing
 
+**Already have the local setup running?**
+
+If you previously ran `make deploy-full-local-setup` and just want to update k8gb with your logging changes:
+
+```bash
+# Quick upgrade - builds new images and upgrades all clusters
+make upgrade-candidate
+```
+
+This will:
+- Build a new docker image with your logging changes
+- Import the image to both k3d clusters
+- Run `helm upgrade` on both clusters
+- Keep your existing test apps and configuration
+
 **Watch the operator logs:**
 
 ```bash
 # In one terminal, watch cluster-1 logs
-kubectl logs -n k8gb -l app.kubernetes.io/name=k8gb -f --context=k3d-cluster-1
+kubectl logs -n k8gb -l app.kubernetes.io/name=k8gb -f --context=k3d-test-gslb1
 
 # In another terminal, watch cluster-2 logs
-kubectl logs -n k8gb -l app.kubernetes.io/name=k8gb -f --context=k3d-cluster-2
+kubectl logs -n k8gb -l app.kubernetes.io/name=k8gb -f --context=k3d-test-gslb2
 ```
 
 **Trigger reconciliation by creating a Gslb:**
@@ -353,11 +368,11 @@ If you don't see debug logs, the log level needs to be changed:
 
 ```bash
 # Update the k8gb deployment to enable debug logging
-kubectl set env deployment/k8gb -n k8gb LOG_LEVEL=debug --context=k3d-cluster-1
-kubectl set env deployment/k8gb -n k8gb LOG_LEVEL=debug --context=k3d-cluster-2
+kubectl set env deployment/k8gb -n k8gb LOG_LEVEL=debug --context=k3d-test-gslb1
+kubectl set env deployment/k8gb -n k8gb LOG_LEVEL=debug --context=k3d-test-gslb2
 
 # Wait for pods to restart
-kubectl rollout status deployment/k8gb -n k8gb --context=k3d-cluster-1
+kubectl rollout status deployment/k8gb -n k8gb --context=k3d-test-gslb1
 ```
 
 ### Step 3: Test with Different Scenarios
