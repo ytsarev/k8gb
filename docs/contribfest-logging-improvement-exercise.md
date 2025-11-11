@@ -332,35 +332,35 @@ kubectl logs -n k8gb -l app.kubernetes.io/name=k8gb -f --context=k3d-test-gslb1
 kubectl logs -n k8gb -l app.kubernetes.io/name=k8gb -f --context=k3d-test-gslb2
 ```
 
-**Trigger reconciliation by creating a Gslb:**
+**Check existing Gslb resources:**
+
+The local setup already has several Gslb resources running. Let's see them:
 
 ```bash
-# Apply a test Gslb resource
-kubectl apply -f - <<EOF
-apiVersion: k8gb.absa.oss/v1beta1
-kind: Gslb
-metadata:
-  name: test-gslb
-  namespace: test-gslb
-spec:
-  resourceRef:
-    name: test-gslb
-    kind: Ingress
-    apiVersion: networking.k8s.io/v1
-  strategy:
-    type: roundRobin
-EOF
+kubectl get gslb -A
+```
+
+You should see:
+```
+NAMESPACE         NAME                 STRATEGY     GEOTAG
+test-gslb-istio   failover-istio       failover     us
+test-gslb-istio   roundrobin-istio     roundRobin   us
+test-gslb         failover-ingress     failover     us
+test-gslb         roundrobin-ingress   roundRobin   us
 ```
 
 **Look for your new log messages:**
 
-You should see logs like:
+The operator continuously reconciles these Gslbs. In the logs you're watching, you should now see your logging improvements:
+
 ```json
-{"level":"debug","ingress":"test-gslb","namespace":"test-gslb","rules_count":1,"time":"2025-11-08T04:00:00Z","message":"Starting server resolution from ingress rules"}
-{"level":"debug","host":"test.cloud.example.com","ingress":"test-gslb","time":"2025-11-08T04:00:00Z","message":"Processing ingress rule for host"}
-{"level":"debug","service":"frontend","namespace":"test-gslb","host":"test.cloud.example.com","time":"2025-11-08T04:00:00Z","message":"Added service to server configuration"}
-{"level":"info","ingress":"test-gslb","servers_count":1,"services_count":1,"time":"2025-11-08T04:00:00Z","message":"Completed server resolution from ingress"}
+{"level":"debug","ingress":"roundrobin-test-gslb","namespace":"test-gslb","rules_count":3,"time":"2025-11-11T04:00:00Z","message":"Starting server resolution from ingress rules"}
+{"level":"debug","host":"roundrobin.cloud.example.com","ingress":"roundrobin-test-gslb","time":"2025-11-11T04:00:00Z","message":"Processing ingress rule for host"}
+{"level":"debug","service":"frontend-podinfo","namespace":"test-gslb","host":"roundrobin.cloud.example.com","time":"2025-11-11T04:00:00Z","message":"Added service to server configuration"}
+{"level":"info","ingress":"roundrobin-test-gslb","servers_count":3,"services_count":3,"time":"2025-11-11T04:00:00Z","message":"Completed server resolution from ingress"}
 ```
+
+Notice the `servers_count: 3` because roundrobin-ingress has multiple hosts (roundrobin, notfound, unhealthy)!
 
 **Enable debug logging:**
 
