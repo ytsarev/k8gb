@@ -63,6 +63,10 @@ The fix is straightforward: regenerate the mocks to include all current interfac
 First, let's examine what methods our mock currently has:
 
 ```bash
+gh pr checkout 2041
+```
+
+```bash
 grep '^func (m \*MockClient)' controllers/mocks/client_mock.go
 ```
 
