@@ -298,7 +298,7 @@ Now let's see the logs in action with a real multi-cluster setup!
 
 ```bash
 # This creates 2 k3d clusters with k8gb installed
-make deploy-full-local-setup
+K8GB_LOCAL_VERSION=test make deploy-full-local-setup
 ```
 
 This will:
