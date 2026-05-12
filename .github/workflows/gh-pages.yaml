@@ -55,7 +55,7 @@ jobs:
             test -f index.yaml && cp index.yaml /tmp/preserved/
             test -f CNAME && cp CNAME /tmp/preserved/
           fi
-          git checkout master
+          git checkout "$GITHUB_REF_NAME"
 
       - name: Deploy documentation with Mike
         if: startsWith(github.ref, 'refs/tags/') && !contains(github.ref_name, '-')
