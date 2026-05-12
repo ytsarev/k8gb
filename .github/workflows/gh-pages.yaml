@@ -64,13 +64,13 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Deploy master documentation
-        if: github.ref == 'refs/heads/master'
+        if: github.ref == 'refs/heads/test/sync-blogs-workflow'
         run: make docs-deploy-master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Deploy latest 3 documentation versions
-        if: github.ref == 'refs/heads/master'
+        if: github.ref == 'refs/heads/test/sync-blogs-workflow'
         run: make docs-deploy-last-3
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -89,7 +89,7 @@ jobs:
           done
 
       - name: Sync blog posts to all versions
-        if: github.ref == 'refs/heads/master'
+        if: github.ref == 'refs/heads/test/sync-blogs-workflow'
         run: make docs-sync-blog
 
       - name: Commit and push
